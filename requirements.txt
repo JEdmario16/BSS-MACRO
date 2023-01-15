@@ -1,2 +1,5 @@
 keyboard
 pyautogui
+pillow
+mss
+opencv-python
