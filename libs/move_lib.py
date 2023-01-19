@@ -3,6 +3,8 @@ import os
 import pyautogui
 from PIL import Image
 from datetime import datetime, timedelta
+from time import sleep
+import keyboard
 
 from typing import Optional
 
@@ -10,6 +12,7 @@ from typing import Optional
 current_haste_stack = 0
 current_haste_time = 0
 configs = macro_tools.read_config()
+BUFFS_REGION = (0, 35, 600, 40)
 
 
 def get_current_haste_stack(screenshot: Optional[Image.Image] = None) -> int:
@@ -33,7 +36,6 @@ def get_current_haste_stack(screenshot: Optional[Image.Image] = None) -> int:
     """
 
     assets_path = configs["PATHS"]["assets"]
-    (0, 30, 600, 50)
 
     tokens_path = os.path.join(assets_path, "tokens\\haste\\")
     token_trigger = os.path.join(tokens_path, "haste-trigger.png")
@@ -42,7 +44,7 @@ def get_current_haste_stack(screenshot: Optional[Image.Image] = None) -> int:
         f"x{i}.png" for i in range(1, 11)
     ]  # Lista de tokens de haste
     if not screenshot:
-        screenshot = macro_tools.screenshot(buffs_region)
+        screenshot = macro_tools.screenshot(region=BUFFS_REGION)
 
     # tenta localizar o trigger de haste
     has_trigger = pyautogui.locate(token_trigger, screenshot, confidence=0.75)
@@ -52,11 +54,12 @@ def get_current_haste_stack(screenshot: Optional[Image.Image] = None) -> int:
         sc2 = screenshot.crop((has_trigger[0] - 5, 0, 35 + has_trigger[0], 40))
         for stack_token in haste_tokens:
             haste_stack = pyautogui.locate(
-                tokens_path + stack_token, sc2, confidence=0.98
+                tokens_path + stack_token, sc2, confidence=0.9
             )
             if haste_stack:
                 return haste_tokens.index(stack_token) + 1
-
+        else:
+            print("Haste trigger encontrado, mas não foi possível encontrar a haste stack")
     return 0
 
 
@@ -83,10 +86,9 @@ def check_if_bear(screenshot: Optional[Image.Image]) -> bool:
         "science_bear.png",
         "mother_bear.png",
     ]
-    buffs_region = (0, 40, 600, 40)
 
     if not screenshot:
-        screenshot = macro_tools.screenshot(buffs_region)
+        screenshot = macro_tools.screenshot(region=BUFFS_REGION)
 
     for bear_token in bear_tokens:
         bear_form = os.path.join(assets_path, "tokens\\bear\\", bear_token)
@@ -95,46 +97,28 @@ def check_if_bear(screenshot: Optional[Image.Image]) -> bool:
     return False
 
 
-def update_player_movespeed() -> float:
-
+def move_tile(
+    current_speed: float,
+    direction: str,
+    block_size_smooth: Optional[float] = 1,
+) -> None:
     """
-    Atualiza a velocidade do player, checando por tokens que podem dar buffs de velocidade.
-    !important: Atualmente, o script NÃO tem capacidade de buscar por ``coconut_haste``, ``tornado`` e ``haste+``.
+    Move o player ao equivalente a um tile. O tamanho do tile é de 4 studs, enquanto a velocidade do player no arquivo de configuração é em studs por segundo.
+    Optei por fazer esta função detecte a velocidade do player, e então movimentar o player de acordo com a velocidade dele.
+    Além disso, o parâmetro block_size_smooth é opcional, e pode ser utilizado para fazer com que o player ande mais rápido ou mais devagar.
+    Isto porque durante as movimentações do player, há dessincronização, e a quantidade de blocos pode acabar sendo diferente do esperado.
+    Nestes caso, uma sugestão interessante é utilizar block_size_smooth como uma progressão geométrica, que irá aumentar/diminuir a velocidade do player a uma fração de tiles.
 
-    :return: float
-
+    :param direction: direção que o player deve andar. Deve ser algo entre ['w', 'a', 's', 'd']
+    :param block_size_smooth: multiplicador de tamanho de tile. Padrão: 1
+    :param: current_speed: velocidade do player. Caso none, a função irá chamar por ``get_current_movespeed``
     """
 
-    global current_haste_stack
-    global current_haste_time
 
-    screenshot = macro_tools.screenshot((0, 40, 600, 40))
-    player_speed = int(configs["PLAYER"]["player_speed"])
-    CANONICAL_SPEED = 18
+    # calcula o tamanho do tile, em pixels
+    tile_size = 4 * block_size_smooth
 
-    haste_stack = get_current_haste_stack(screenshot)
-
-    if haste_stack > 0 and haste_stack != current_haste_stack:
-        current_haste_stack = haste_stack
-        current_haste_time = datetime.now()
-
-    delta = (
-        datetime.now() - current_haste_time
-        if current_haste_time != 0
-        else timedelta(seconds=0)
-    )
-    #! Pedaço de código em teste. O algoritimo leva um certo tempo para triggar o haste, então ele irá andar menos do que deveria. Para contornar isso,
-    #! irei fazer com que o haste dure um pouco menos do que o esperado, e assim, o player irá andar por mais tempo.
-    if delta.seconds >= 18:
-
-        current_haste_stack = 0
-        current_haste_time = 0
-
-    has_bear = 1 if check_if_bear(screenshot) else 0
-
-    # calcula a velocidade  do player
-    current_player_speed = (
-        (CANONICAL_SPEED + 6 * has_bear) * player_speed / CANONICAL_SPEED
-    ) * (1 + 0.1 * current_haste_stack)
-
-    return current_player_speed
+    # move o player
+    keyboard.press(direction)
+    sleep(tile_size / current_speed)
+    keyboard.release(direction)

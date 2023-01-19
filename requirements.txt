@@ -3,3 +3,4 @@ pyautogui
 pillow
 mss
 opencv-python
+numpy

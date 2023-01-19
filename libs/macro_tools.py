@@ -5,8 +5,12 @@ import os
 import configparser
 import pyautogui
 import webbrowser
-import keyboard
-from time import sleep
+import win32gui
+import win32ui
+import win32con
+import numpy
+
+
 from libs.erros_handlers import RobloxNotOpenError, MissingConfigError
 
 from typing import Optional
@@ -85,7 +89,7 @@ def read_config():
         raise FileNotFoundError("Arquivo config.ini não encontrado")
 
     config = configparser.ConfigParser()
-    config.read(config_filepath)
+    config.read(config_filepath, encoding="utf-8")
     return config
 
 
@@ -113,36 +117,51 @@ def set_value_in_config(section: str, key: str, value: str) -> None:
         config.write(configfile)
 
 
-def screenshot(
-    region: tuple[int, int, int, int], filename: str = None
-) -> Image:
+def get_program_status() -> bool:
     """
-    Captura uma imagem da tela e retorna um objeto do tipo Image do PIL
-    O próprio pyautogui e o PIL são capazes de capturar a tela, mas o mss é muito mais rápido
-    Em testes, o mss capturou a tela em 17ms, enquanto o pyautogui levou de 60 a 80ms
-    Além disso, foi vereficado que o tempo para a screenshot do mss não aumenta consideravelmente com o tamanho da tela. No entanto,
-    caso seja necessário procurar por algo na imagem, é recomendado que ``region`` seja o menor possível
-
-    :param region: Uma tupla com as coordenadas da região que será capturada (x, y, width, height), onde x e y são as coordenadas do canto superior esquerdo
-    :param filename: O nome do arquivo que será salvo. Se None, a imagem não será salva.
+    Esta função simples busca pelo status atual do programa no arquivo config.ini
+    uitas das ``foreground functions`` do programa dependem do status do programa, então é melhor ter uma função
     """
 
-    with mss.mss() as sct:
-        # Captura a tela toda
 
-        monitor = {
-            "left": region[0],
-            "top": region[1],
-            "width": region[2],
-            "height": region[3],
-        }
-        sct_img = sct.grab(monitor)
-        img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
+def screenshot(region: tuple[int, int, int, int], window_name: Optional[str] = "Roblox",filename:Optional[str] = None) -> Image.Image:
 
-        if filename:
-            img.save(filename)
-        return img
+    """
+    Captura a tela do jogo na região indicada e retorna um objeto PIL.Image
+    
+    :param window_name: Nome da janela do jogo. Para os propósitos desta aplicação, o nome da janela é "Roblox" por padrão
+    :param region: Região da tela que será capturada, (x, y, width, height)
+    :param filename: Nome do arquivo que será salvo. Se None, não salva o arquivo
+    :return: Objeto PIL.Image
 
+    """
+
+    x, y, w, h = region
+    
+    hwnd = win32gui.FindWindow(None, window_name)
+    wDC = win32gui.GetWindowDC(hwnd)
+    dcObj = win32ui.CreateDCFromHandle(wDC)
+    cDC = dcObj.CreateCompatibleDC()
+    dataBitMap = win32ui.CreateBitmap()
+    dataBitMap.CreateCompatibleBitmap(dcObj, w, h)
+    cDC.SelectObject(dataBitMap)
+    cDC.BitBlt((0,0),(w, h) , dcObj, (x,y), win32con.SRCCOPY)
+    
+    # Salva o bitmap diretamente como um objeto PIL.Image
+    buffer = dataBitMap.GetBitmapBits(True)
+    img = Image.frombytes("RGB", (w, h), buffer, "raw", "BGRX")
+    
+
+    if filename:
+        img.save(filename)
+
+    #Free Resources
+    dcObj.DeleteDC()
+    cDC.DeleteDC()
+    win32gui.ReleaseDC(hwnd, wDC)
+    win32gui.DeleteObject(dataBitMap.GetHandle())
+
+    return img
 
 def check_if_full_inventory() -> bool:
 
