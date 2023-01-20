@@ -1,0 +1,107 @@
+2023-01-19T23:14:23.618986-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:14:23.620984-0300 INFO Speed tracker started foreground_threads.speed_tracker:86
+2023-01-19T23:14:28.244672-0300 INFO Speed tracker stopped foreground_threads.speed_tracker:95
+2023-01-19T23:14:28.558947-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:15:16.853321-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:15:29.800022-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:15:33.269402-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:15:38.020767-0300 INFO Program paused: True __main__:35
+2023-01-19T23:15:41.900300-0300 INFO Program paused: False __main__:35
+2023-01-19T23:15:56.883860-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:16:26.354810-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:16:39.342530-0300 INFO Program paused: True __main__:35
+2023-01-19T23:16:41.212464-0300 INFO Program paused: False __main__:35
+2023-01-19T23:16:43.263848-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:16:59.468803-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:17:12.212476-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:18:35.762103-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:18:42.844292-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:18:51.982503-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:18:54.607013-0300 INFO Program paused: True __main__:35
+2023-01-19T23:18:59.863306-0300 INFO Program paused: False __main__:35
+2023-01-19T23:19:05.729406-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:21:19.938675-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:21:20.830926-0300 INFO Program paused: True __main__:35
+2023-01-19T23:21:24.678954-0300 INFO Program paused: False __main__:35
+2023-01-19T23:21:28.469516-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:43:11.439875-0300 INFO Starting main thread. __main__:44
+2023-01-19T23:43:16.836106-0300 INFO Program paused: True __main__:35
+2023-01-19T23:43:16.962132-0300 INFO Program paused: False __main__:35
+2023-01-19T23:43:25.579212-0300 INFO Program paused: True __main__:35
+2023-01-19T23:43:28.930211-0300 INFO Program paused: False __main__:35
+2023-01-19T23:43:31.073393-0300 INFO Exiting main thread. __main__:74
+2023-01-19T23:45:48.421530-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:45:53.150384-0300 INFO Program paused: True __main__:35
+2023-01-19T23:45:53.151377-0300 INFO SpeedTracker paused: True __main__:36
+2023-01-19T23:45:53.152378-0300 INFO AutoClicker paused: True __main__:37
+2023-01-19T23:45:57.777244-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:46:09.794941-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:46:16.595346-0300 INFO Program paused: True __main__:35
+2023-01-19T23:46:27.044339-0300 INFO Program paused: False __main__:35
+2023-01-19T23:47:01.704448-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:47:56.016702-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:48:09.842744-0300 INFO Program paused: True __main__:35
+2023-01-19T23:48:27.684757-0300 INFO Program paused: False __main__:35
+2023-01-19T23:49:08.247053-0300 INFO Program paused: True __main__:35
+2023-01-19T23:49:08.375036-0300 INFO Program paused: False __main__:35
+2023-01-19T23:49:10.032635-0300 INFO Program paused: True __main__:35
+2023-01-19T23:49:10.143476-0300 INFO Program paused: False __main__:35
+2023-01-19T23:49:13.212539-0300 INFO Program paused: True __main__:35
+2023-01-19T23:49:13.975537-0300 INFO Program paused: False __main__:35
+2023-01-19T23:49:14.631659-0300 INFO Program paused: True __main__:35
+2023-01-19T23:49:21.815943-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:50:09.012772-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:51:15.239420-0300 WARNING The main thread is trying to exit, but some foreground threads are still running after 0.5 seconds. __main__:76
+2023-01-19T23:51:15.240423-0300 WARNING The main thread will exit anyway, but this may cause some problems. __main__:77
+2023-01-19T23:51:15.241421-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:52:02.457497-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:52:51.157724-0300 INFO Program paused: True __main__:35
+2023-01-19T23:52:51.268723-0300 INFO Program paused: False __main__:35
+2023-01-19T23:52:54.020958-0300 INFO Program paused: True __main__:35
+2023-01-19T23:52:54.129098-0300 INFO Program paused: False __main__:35
+2023-01-19T23:52:58.743293-0300 INFO Program paused: True __main__:35
+2023-01-19T23:52:58.853297-0300 INFO Program paused: False __main__:35
+2023-01-19T23:52:58.961296-0300 INFO Program paused: True __main__:35
+2023-01-19T23:53:24.750257-0300 WARNING The main thread is trying to exit, but some foreground threads are still running after 0.5 seconds. __main__:76
+2023-01-19T23:53:24.752253-0300 WARNING The main thread will exit anyway, but this may cause some problems. __main__:77
+2023-01-19T23:53:24.754252-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:55:11.922256-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:55:50.744533-0300 INFO Program paused: True __main__:35
+2023-01-19T23:56:07.979800-0300 WARNING The main thread is trying to exit, but some foreground threads are still running after 0.5 seconds. __main__:76
+2023-01-19T23:56:07.981802-0300 WARNING The main thread will exit anyway, but this may cause some problems. __main__:77
+2023-01-19T23:56:07.984803-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:57:34.949693-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:57:54.917610-0300 WARNING The main thread is trying to exit, but some foreground threads are still running after 0.5 seconds. __main__:76
+2023-01-19T23:57:54.918604-0300 WARNING The main thread will exit anyway, but this may cause some problems. __main__:77
+2023-01-19T23:57:54.920603-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:58:13.264715-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:58:20.564280-0300 INFO Program paused: True __main__:35
+2023-01-19T23:58:23.177603-0300 WARNING The main thread is trying to exit, but some foreground threads are still running after 0.5 seconds. __main__:76
+2023-01-19T23:58:23.179607-0300 WARNING The main thread will exit anyway, but this may cause some problems. __main__:77
+2023-01-19T23:58:23.184607-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:58:36.879647-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:59:00.365450-0300 INFO Program paused: True __main__:35
+2023-01-19T23:59:13.974876-0300 WARNING The main thread is trying to exit, but some foreground threads are still running after 0.5 seconds. __main__:76
+2023-01-19T23:59:13.976879-0300 WARNING The main thread will exit anyway, but this may cause some problems. __main__:77
+2023-01-19T23:59:13.979879-0300 INFO Exiting main thread. __main__:78
+2023-01-19T23:59:46.469229-0300 INFO Starting main thread. __main__:46
+2023-01-19T23:59:58.988371-0300 INFO Program paused: True __main__:35
+2023-01-20T00:00:08.692550-0300 WARNING The main thread is trying to exit, but some foreground threads are still running after 0.5 seconds. __main__:76
+2023-01-20T00:00:08.694551-0300 WARNING The main thread will exit anyway, but this may cause some problems. __main__:77
+2023-01-20T00:00:08.696551-0300 INFO Exiting main thread. __main__:78
+2023-01-20T00:00:59.614248-0300 INFO Starting main thread. __main__:46
+2023-01-20T00:01:35.806324-0300 INFO Program paused: True __main__:35
+2023-01-20T00:02:19.384234-0300 INFO Program paused: False __main__:35
+2023-01-20T00:02:20.402686-0300 INFO Program paused: True __main__:35
+2023-01-20T00:02:26.690686-0300 INFO Program paused: False __main__:35
+2023-01-20T00:03:57.240309-0300 INFO Program paused: True __main__:35
+2023-01-20T00:09:10.558527-0300 INFO Exiting main thread. __main__:78
+2023-01-20T00:09:21.166908-0300 INFO Starting main thread. __main__:46
+2023-01-20T00:09:31.833098-0300 INFO Program paused: True __main__:35
+2023-01-20T00:09:34.216180-0300 INFO Program paused: False __main__:35
+2023-01-20T00:09:36.940226-0300 INFO Program paused: True __main__:35
+2023-01-20T00:09:37.050230-0300 INFO Program paused: False __main__:35
+2023-01-20T00:09:53.346892-0300 INFO Program paused: True __main__:35
+2023-01-20T00:09:53.470891-0300 INFO Program paused: False __main__:35
+2023-01-20T00:10:44.741029-0300 INFO Program paused: True __main__:35
+2023-01-20T00:10:49.620537-0300 INFO Exiting main thread. __main__:78

@@ -3,17 +3,22 @@ from libs import macro_tools, move_lib
 from typing import Optional
 import time
 from datetime import datetime, timedelta
-
+import loguru
 
 class SpeedTracker(threading.Thread):
 
-    def __init__(self, delay: Optional[float] = 0.1) -> None:
+    """
+    This class is responsible for tracking the player's speed and haste stacks.
+    The parameters ``is_paused`` and ``tracker_running`` are used to pause/stop the thread, and they are managed by the main thread, which can edit these parameters at runtime.
+    """
+
+    def __init__(self, logger: loguru.logger, delay: Optional[float] = 0.1) -> None:
         super().__init__()
 
         self._delay = delay
-        self.current_status = 1 # 0 = pausado, 1 = rodando, 2 = fechando
+
         self.is_paused = False
-        self.tracker_running = True
+        self.tracker_running = False
         self._roblox_window = macro_tools.get_roblox_window()
 
         self.current_haste_stack = 0
@@ -22,25 +27,11 @@ class SpeedTracker(threading.Thread):
         self.has_bear = 0
         self.current_player_speed = 0
 
-        self.delta = 0
+        self.logger = logger
 
     def change_pause_status(self) -> None:
         self.is_paused = not self.is_paused
-
-
-    def check_program_status(self):
-        try:
-            current_status = macro_tools.read_config().getint("PROGRAM", "status")
-            print("Current status: ", current_status)
-        except KeyError:
-            current_status = self._current_program_status
-
-        if current_status == 0:
-            self.change_pause_status()
-
-        elif current_status == 2:
-            self.exit()
-
+        self.logger.debug(f"SpeedTracker thread is now {'paused' if self.is_paused else 'unpaused'}")
 
     def get_current_movespeed(self):
 
@@ -77,7 +68,6 @@ class SpeedTracker(threading.Thread):
         if self.current_haste_stack > 0 and self.current_haste_stack != self.previous_haste_stack or self.current_haste_stack == 10:
             self.current_haste_time = datetime.now()
             self.previous_haste_stack = self.current_haste_stack
-            print("Haste updated")
         else:
             delta = (
                 datetime.now() - self.current_haste_time
@@ -87,22 +77,22 @@ class SpeedTracker(threading.Thread):
 
             self.delta = delta
             if delta.seconds >= 19:
-                print("Haste expired")
+                self.previous_haste_stack = self.current_haste_stack
                 self.current_haste_stack = 0
                 self.current_haste_time = 0
 
     def run(self):
-        print("Speed tracker started")
+        self.tracker_running = True
+        self.logger.debug("Speed tracker started")
         while self.tracker_running:
-            self.check_program_status()
             while not self.is_paused and self.tracker_running:
-                self.check_program_status()
                 if macro_tools.get_active_window() == self._roblox_window.title:
                     self.get_current_movespeed()
-                    time.sleep(self._delay)
                 time.sleep(self._delay)
             time.sleep(self._delay)
-        print("Speed tracker stopped")
+        
+        self.exit()
+        self.logger.debug("Speed tracker stopped")
 
     def exit(self) -> None:
         self.tracker_running = False

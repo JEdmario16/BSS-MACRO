@@ -4,3 +4,5 @@ pillow
 mss
 opencv-python
 numpy
+pynput
+loguru
